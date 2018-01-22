@@ -6,9 +6,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/addons/p5.dom.min.js"></script>
     <script src="sketch.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
   </head>
   <body>
+    <div style="display: flex; flex-direction: row;justify-content: center;">
+      <div style="flex-grow: 1; text-align:right">
+        <p style="color: red">Red  : <span style="color: #000" id="RED">0</span></p>
+      </div>
+      <div style="flex-grow: 1"></div>
+      <div style="flex-grow: 1">
+        <p style="color: blue">Blue  : <span style="color: #000" id="BLUE">0</span></p>
+      </div>
+    </div>
     <style type="text/css">
+    p {
+      font-family: 'Fredoka One', cursive;
+      font-size: 2em;
+    }
     /* @media (min-width: 481px){
       canvas {
         display: block ;
