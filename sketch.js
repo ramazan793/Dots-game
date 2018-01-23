@@ -175,11 +175,16 @@ function generateShape(path) {
 function isAppropriate(path){
   let min = 0;
   let max = 0;
+  let Xmin = 0;
+  let Xmax = 0;
   let flag = false;
+  var debug = [];
   let typedots = (path[0].type != "red") ? reddots : bluedots;
   for (dot in path) {
     if (path[dot].y > path[max].y) max = dot;
     if (path[dot].y < path[min].y) min = dot;
+    if (path[dot].x > path[Xmax].x) Xmax = dot;
+    if (path[dot].x < path[Xmin].x) Xmin = dot;
   }
 
   for (var i = path[min].y; i <= path[max].y; i++){
@@ -188,14 +193,20 @@ function isAppropriate(path){
       if (path[j].y == i) dotsX.push(path[j]);
     }
     dotsX.sort((a,b) => { return a.x - b.x})
-    for (var j = dotsX[0].x; j <= dotsX[dotsX.length-1].x; j++)
-    if (typedots[j][i] != undefined && !typedots[j][i].captured) {
-      typedots[j][i].captured = true;
-      if (typedots[j][i].type == "red") scoreBlue++
-      else scoreRed++;
-      flag = true;
+    for (var j = dotsX[0].x; j <= dotsX[dotsX.length-1].x; j++) {
+      var boundary = (j == path[Xmax].x || j == path[Xmin].x || i == path[max].y || i == path[min].y); // temporary solution
+      console.log(typedots[j][i]);
+      if (typedots[j][i] != undefined && !typedots[j][i].captured && !boundary) {
+        typedots[j][i].captured = true;
+        debug.push(typedots[j][i]);
+        if (typedots[j][i].type == "red") scoreBlue++
+        else scoreRed++;
+        flag = true;
+      }
     }
   }
+  console.log('Max x ' + path[Xmax].x + ' Min x ' + path[Xmin].x + ' Max y' + path[max].y + 'Min y' + path[min].y);
+  console.log(debug);
   return flag;
 }
 
